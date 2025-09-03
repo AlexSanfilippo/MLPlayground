@@ -20,3 +20,8 @@ To run pytorch CPU or CUDA GPU, use the follow parameters when syncing UV.
  - Check: uv run ruff check
 
  - Check automatic fix: uv run ruff check --fix
+
+
+ ## Project
+ 
+ https://app.zenkit.com/c/qW7sP4Y6sB/ai-agent
