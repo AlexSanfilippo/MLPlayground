@@ -1,5 +1,7 @@
 """
 A simple script to check that OpenGL is working.
+
+This is just about the bare minimum boilerplate code needed to open a window and draw
 """
 import glfw
 from OpenGL.GL import *
