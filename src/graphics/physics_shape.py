@@ -1,4 +1,4 @@
-from src.graphics.shape import Shape
+from graphics.shape import Shape
 
 
 class PhysicsShape(Shape):

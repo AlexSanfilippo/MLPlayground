@@ -13,7 +13,7 @@ WIP - Test the combination of our shape-drawing class (Shape) with Box2D physics
     #[]Physics shape should update it's position and rotation from the BOX2D body each frame
         #update() method
     #[]Add ability to apply forces to the physics shape
-from src.graphics.physics_shape import PhysicsShape
+from graphics.physics_shape import PhysicsShape
 
 """
 Visual tests for the class Shape

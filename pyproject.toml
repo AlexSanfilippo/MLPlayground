@@ -10,3 +10,11 @@ dependencies = [
     "pyglm>=2.8.2",
     "pyopengl>=3.1.10",
 ]
+
+[dependency-groups]
+dev = [
+    "mlplayground",
+]
+
+[tool.uv.sources]
+mlplayground = { workspace = true }
