@@ -11,10 +11,29 @@ dependencies = [
     "pyopengl>=3.1.10",
 ]
 
-[dependency-groups]
-dev = [
-    "mlplayground",
-]
+[project.optional-dependencies]
+cpu = ["torch>=2.7.0"]
+cu128 = ["torch>=2.7.0"]
+
+[tool.uv]
+conflicts = [[{ extra = "cpu" }, { extra = "cu128" }]]
 
 [tool.uv.sources]
 mlplayground = { workspace = true }
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu128", extra = "cu128" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[dependency-groups]
+dev = ["mlplayground", "ruff>=0.12.12"]

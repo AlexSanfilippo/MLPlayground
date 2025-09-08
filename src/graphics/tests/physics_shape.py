@@ -27,7 +27,7 @@ import glfw
 from OpenGL.GL import *
 import numpy as np
 
-from Box2D.b2 import world, polygonShape, staticBody, dynamicBody
+from Box2D.b2 import world, polygonShape
 
 #GLOBALS
 #window width and height in pixels
