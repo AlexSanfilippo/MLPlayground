@@ -1,7 +1,7 @@
 """
 Visual tests for the class Shape
 """
-from src.graphics.shape import Shape
+from graphics.shape import Shape
 
 """
 A simple script to check that OpenGL is working.
