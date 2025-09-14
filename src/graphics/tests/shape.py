@@ -2,6 +2,10 @@
 Visual tests for the class Shape
 """
 from src.graphics.shape import Shape
+
+"""
+A simple script to check that OpenGL is working.
+"""
 import glfw
 from OpenGL.GL import *
 import numpy as np
@@ -57,8 +61,8 @@ jewel_tones = {
 }
 
 
-triangle = Shape(position=[0.0, 0.0, 0.0], color=jewel_tones["ruby"],  scale=0.2, rotation=[0.0, 0.0, 0.33], sides=3)
-square = Shape(position=[-0.25, 0.25, 0.0], color=jewel_tones["emerald"], scale=0.4, sides=4, static=False)
+triangle = Shape(position=[0.0, 0.0, 0.0], color=jewel_tones["ruby"],  scale=0.2, rotation=0.33, sides=3)
+square = Shape(position=[-0.25, 0.25, 0.0], color=jewel_tones["emerald"], scale=0.4, rotation=0.0, sides=4, static=False)
 square.set_position(position=[-0.5, 0.5, 0.0])
 pentagon = Shape(position=[0.25, 0.25, 0.0], color=jewel_tones["sapphire"], scale=0.2, sides=5, static=False)
 pentagon.set_position(position=[0.5, 0.5, 0.0])

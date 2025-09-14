@@ -3,10 +3,18 @@ WIP - Test the combination of our shape-drawing class (Shape) with Box2D physics
 """
 from src.graphics.physics_shape import PhysicsShape
 
+# from graphics.physics_shape import PhysicsShape
+
+p = PhysicsShape
+
 """
 Visual tests for the class PhysicsShape
 """
 from src.graphics.shape import Shape
+
+"""
+A simple script to check that OpenGL is working.
+"""
 import glfw
 from OpenGL.GL import *
 import numpy as np
