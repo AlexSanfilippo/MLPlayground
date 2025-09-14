@@ -19,7 +19,7 @@ width, height = 800, 800
 
 # --- pybox2d world setup ---
 # Create the world
-world = world(gravity=(0.02, 0.0), doSleep=True)
+world = world(gravity=(0.0, 0.0), doSleep=True)
 PPM = 20.0  # pixels per meter
 TARGET_FPS = 200
 TIME_STEP = 1.0 / TARGET_FPS
@@ -69,17 +69,17 @@ jewel_tones = {
     "diamond": [0.85, 0.85, 0.95]
 }
 
-#creation of 4 PhysicsShapes
-wall = PhysicsShape(color=jewel_tones["diamond"], position=[0.8, 0.23, 0.0], rotation=[0.0, 0.0,np.pi/5], scale=0.75, sides=4, static=True)
+#creation of PhysicsShape objects
+wall = PhysicsShape(color=jewel_tones["diamond"], position=[0.25, 0.23, 0.0], rotation=[0.0, 0.0,np.pi/4], scale=0.25, sides=4, static=False)
 wall.make_physics_shape(world=world)
-agent = PhysicsShape(position=[-1.0, 0.0, 0.0], color=jewel_tones["emerald"], rotation=np.pi/4 * 0.1, scale=0.1, sides=3, static=False)
+agent = PhysicsShape(position=[-0.5, 0.0, 0.0], color=jewel_tones["emerald"], rotation=np.pi/4 * 0.1, scale=0.1, sides=3, static=False)
 agent.make_physics_shape(world=world)
-agent2 = PhysicsShape(position=[-1.5, 0.0, 0.0], color=jewel_tones["ruby"], rotation=np.pi/4 * 0.1, scale=0.15, sides=5, static=False)
-agent2.make_physics_shape(world=world)
-agent3 = PhysicsShape(position=[-1.8, 0.3, 0.0], color=jewel_tones["topaz"], rotation=np.pi/4 * 0.1, scale=0.15, sides=4, static=False)
-agent3.make_physics_shape(world=world)
-agents = [agent, agent2, agent3]
-shapes = [wall, agent, agent2, agent3]
+agents = [wall, agent]
+shapes = [wall, agent]
+
+#Apply the force just ONCE to the agent
+agent.physics_body.ApplyForce(force=(0.4, .05), point=agent.physics_body.worldCenter, wake=True)
+
 
 while not glfw.window_should_close(window):
     #check for events (keyboard, mouse, etc)
@@ -90,11 +90,9 @@ while not glfw.window_should_close(window):
     #update physics world
     world.Step(TIME_STEP, 10, 10)
 
-    for agent in agents:
-        agent.update_to_physics()
-
     #draw world
     for shape in shapes:
+        shape.update_to_physics()
         shape.draw()
 
     #swap the front and back buffers

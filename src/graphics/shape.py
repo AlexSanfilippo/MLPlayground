@@ -1,4 +1,4 @@
-import glm
+from pyglm import glm
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
@@ -9,14 +9,17 @@ class Shape:
     Define a regular polygon to draw.
     """
 
-    def __init__(self, position=[0.0, 0.0, 0.0], color=[1.0, 0.0, 1.0], scale=1.0, rotation=0.0, sides=3, shader=None, static=True):
+    def __init__(self, position=[0.0, 0.0, 0.0], color=[1.0, 0.0, 1.0], scale=1.0, rotation=[0.0]*3, sides=3, shader=None, static=True):
         if static:
             self.position = position
         else:
             self.position = [0.0, 0.0, 0.0]
         self.color = color
         self.scale = scale
-        self.rotation = rotation
+        if type(rotation) == list:
+            self.rotation = glm.vec3(rotation)
+        else:
+            self.rotation = glm.vec3([0.0, 0.0, rotation])
         self.sides = sides
         self.static = static
         self.vertices = self.generate_vertices()
@@ -141,11 +144,12 @@ class Shape:
         vertices = []
         angle_step = 2 * np.pi / self.sides
         for i in range(self.sides):
-            angle = i * angle_step + self.rotation
+            angle = i * angle_step + self.rotation.z
             x = self.position[0] + self.scale * np.cos(angle)
             y = self.position[1] + self.scale * np.sin(angle)
             z = self.position[2]
             vertices.extend([x, y, z, self.color[0], self.color[1], self.color[2]])
+        self.rotation=[0.0, 0.0, 0.0]  # Reset rotation after generating vertices
         return np.array(vertices, dtype=np.float32)
 
     def generate_indices(self):
@@ -162,13 +166,12 @@ class Shape:
         position_loc = glGetUniformLocation(self.shader, "uPosition")
         rotation_loc = glGetUniformLocation(self.shader, "uRotation")
         glUniform3fv(position_loc, 1, self.position)
-        glUniform3fv(rotation_loc, 1, *[0.0, 0.0, self.rotation])
+        glUniform3fv(rotation_loc, 1, list(self.rotation))
 
         # Draw the shape
         glDrawElements(GL_TRIANGLES, len(self.indices), GL_UNSIGNED_INT, None)
 
     def update_position(self, velocity):
-        #temporary proof of concept using glm for vector addition
         self.position = list(glm.vec3(self.position) + glm.vec3(velocity))
 
     def update_rotation(self, delta_rotation):
